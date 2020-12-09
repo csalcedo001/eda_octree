@@ -10,11 +10,12 @@ class BaseNode {
 public:
 	int x_;
 	int y_;
+	int z_;
 	T data_;
-	Node *children_[4];
+	Node *children_[8];
 
 public:
-	BaseNode(int, int, T &);
+	BaseNode(int, int, int, T &);
 	bool is_leave();
 };
 

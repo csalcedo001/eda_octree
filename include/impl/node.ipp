@@ -8,8 +8,8 @@ namespace eda {
 namespace octree {
 
 template <typename T>
-Node<T>::Node(int x, int y, T data) :
-	BaseNode<T, Node<T> >(x, y, data)
+Node<T>::Node(int x, int y, int z, T data) :
+	BaseNode<T, Node<T> >(x, y, z, data)
 { }
 
 } // namespace octree

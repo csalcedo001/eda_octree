@@ -15,15 +15,15 @@ protected:
 public:
 	BaseOctree();
 	~BaseOctree();
-	void insert(int, int, T);
+	void insert(int, int, int, T);
 	void print();
 	void clear();
 	void save(std::ostream &);
 	void load(std::istream &);
 
 protected:
-	void insert(Node *&, int, int, T);
-	void print(Node *, int level);
+	void insert(Node *&, int, int, int, T);
+	void print(Node *, int, int);
 	void kill(Node *);
 	long long save(Node *, std::ostream &);
 	Node *load(long long, std::istream &);

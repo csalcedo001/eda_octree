@@ -11,13 +11,13 @@ int main() {
 
 	cin >> n;
 
-	int x, y;
+	int x, y, z;
 	string name;
 
 	while (n--) {
-		cin >> x >> y >> name;
+		cin >> x >> y >> z >> name;
 
-		octree.insert(x, y, name);
+		octree.insert(x, y, z, name);
 	}
 
 	octree.print();
