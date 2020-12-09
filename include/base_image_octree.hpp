@@ -30,18 +30,20 @@ public:
 protected:
 	int width_;
 	int height_;
+	int depth_;
 	double threshold_;
 
 public:
-	BaseImageOctree(int, int, double);
+	BaseImageOctree(int, int, int, double);
 	BaseImageOctree(Image3D &, double);
 
-	void print_grid();
+	// void print_grid();
 	int width();
 	int height();
+	int depth();
 
 protected:
-	void print_grid(Node<Pixel> *, std::vector<std::vector<bool> > &);
+	// void print_grid(Node<Pixel> *, std::vector<std::vector<bool> > &);
 
 public:
 	virtual void fill(Image3D &) = 0;

@@ -81,7 +81,7 @@ void BaseOctree<T, Node>::load(std::istream &is) {
 	is.read((char *) &z, sizeof(int));
 	is.read((char *) &data, sizeof(T));
 
-	this->head_ = new Node(x, y, data);
+	this->head_ = new Node(x, y, z, data);
 
 	long long positions[8];
 

@@ -28,19 +28,21 @@ int main(int argc, char **argv) {
 	ss >> threshold;
 
 
-	int width, height;
+	int width, height, depth;
 
-	cin >> width >> height;
+	cin >> width >> height >> depth;
 
-	eda::octree::Image3D image(width, height);
+	eda::octree::Image3D image(width, height, depth);
 
 	eda::octree::Pixel pixel;
 
-	for (int i = 0; i < height; i++) {
-		for (int j = 0; j < width; j++) {
-			cin >> pixel;
+	for (int z = 0; z < depth; z++) {
+		for (int y = 0; y < height; y++) {
+			for (int x = 0; x < width; x++) {
+				cin >> pixel;
 
-			image.set_cell(j, i, pixel);
+				image.set_cell(x, y, z, pixel);
+			}
 		}
 	}
 

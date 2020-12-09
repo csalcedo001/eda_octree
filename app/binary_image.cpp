@@ -10,15 +10,17 @@ int main() {
 
 	cin >> n;
 
-	eda::octree::Image3D image(n, n);
+	eda::octree::Image3D image(n, n, n);
 
 	int c;
 
-	for (int i = 0; i < n; i++) {
-		for (int j = 0; j < n; j++) {
-			cin >> c;
+	for (int z = 0; z < n; z++) {
+		for (int y = 0; y < n; y++) {
+			for (int x = 0; x < n; x++) {
+				cin >> c;
 
-			image.set_cell(j, i, eda::octree::Pixel(c * 255));
+				image.set_cell(x, y, z, eda::octree::Pixel(c * 255));
+			}
 		}
 	}
 
@@ -29,8 +31,8 @@ int main() {
 	cout << "Input image:" << endl;
 	image.print();
 
-	cout << "Compressed quad tree grid:" << endl;
-	scan_octree.print_grid();
+	// cout << "Compressed quad tree grid:" << endl;
+	// scan_octree.print_grid();
 
 	cout << "Reconstructed image:" << endl;
 	reconstructed_image.print();

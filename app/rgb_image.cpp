@@ -6,21 +6,23 @@
 using namespace std;
 
 int main() {
-	int width, height;
+	int width, height, depth;
 
 	cin >> width >> height;
 
-	eda::octree::Image3D image(width, height);
+	eda::octree::Image3D image(width, height, depth);
 
 	int c;
 
 	eda::octree::Pixel pixel;
 
-	for (int i = 0; i < height; i++) {
-		for (int j = 0; j < width; j++) {
-			cin >> pixel;
+	for (int z = 0; z < depth; z++) {
+		for (int y = 0; y < height; y++) {
+			for (int x = 0; x < width; x++) {
+				cin >> pixel;
 
-			image.set_cell(j, i, pixel);
+				image.set_cell(x, y, z, pixel);
+			}
 		}
 	}
 
@@ -28,14 +30,14 @@ int main() {
 
 	eda::octree::Image3D reconstructed_image(scan_octree);
 
-	cout << "Input image:" << endl;
-	image.print();
+	// cout << "Input image:" << endl;
+	// image.print();
 
-	cout << "Compressed quad tree grid:" << endl;
-	scan_octree.print_grid();
+	// cout << "Compressed quad tree grid:" << endl;
+	// scan_octree.print_grid();
 
-	cout << "Reconstructed image:" << endl;
-	reconstructed_image.print();
+	// cout << "Reconstructed image:" << endl;
+	// reconstructed_image.print();
 
 	return 0;
 }

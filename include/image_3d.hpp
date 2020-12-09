@@ -27,17 +27,19 @@ public:
 protected:
 	int width_;
 	int height_;
-	std::vector<std::vector<Pixel> > grid_;
+	int depth_;
+	std::vector<std::vector<std::vector<Pixel> > > grid_;
 
 public:
 	Image3D(const Image3D &);
-	Image3D(int, int);
+	Image3D(int, int, int);
 	Image3D(BaseImageOctree &);
 
 	int width();
 	int height();
-	std::vector<std::vector<Pixel> > &grid();
-	void set_cell(int, int, Pixel);
+	int depth();
+	std::vector<std::vector<std::vector<Pixel> > > &grid();
+	void set_cell(int, int, int, Pixel);
 	void print();
 };
 

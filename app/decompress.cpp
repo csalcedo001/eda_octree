@@ -31,17 +31,19 @@ int main(int argc, char **argv) {
 	}
 
 	// TODO: update data loading to restore image width and height
-	eda::octree::ScanOctree octree(0, 0, 0);
+	eda::octree::ScanOctree octree(0, 0, 0, 0);
 
 	octree.load(octree_file);
 
 	eda::octree::Image3D image(octree);
 
-	image_file << image.width() << ' ' << image.height() << endl;
+	image_file << image.width() << ' ' << image.height() << ' ' << image.depth() << endl;
 
-	for (auto row : image.grid()) {
-		for (auto pixel : row) {
-			image_file << pixel << endl;
+	for (auto matrix : image.grid()) {
+		for (auto row : matrix) {
+			for (auto pixel : row) {
+				image_file << pixel << endl;
+			}
 		}
 	}
 
