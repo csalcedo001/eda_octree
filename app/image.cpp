@@ -1,6 +1,6 @@
 #include <iostream>
 
-#include "image.hpp"
+#include "image_3d.hpp"
 #include "pixel.hpp"
 #include "scan_octree.hpp"
 

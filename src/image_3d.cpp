@@ -1,4 +1,4 @@
-#include "image.hpp"
+#include "image_3d.hpp"
 
 #include <vector>
 

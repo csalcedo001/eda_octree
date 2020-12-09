@@ -3,7 +3,7 @@
 #include <vector>
 
 #include "base_octree.hpp"
-#include "image.hpp"
+#include "image_3d.hpp"
 #include "node.hpp"
 #include "pixel.hpp"
 

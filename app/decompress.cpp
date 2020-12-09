@@ -2,7 +2,7 @@
 #include <fstream>
 #include <sstream>
 
-#include "image.hpp"
+#include "image_3d.hpp"
 #include "scan_octree.hpp"
 #include "pixel.hpp"
 
