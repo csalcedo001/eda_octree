@@ -7,7 +7,7 @@ namespace eda {
 
 namespace octree {
 
-class Image;
+class Image3D;
 
 } // namespace octree
 
@@ -20,7 +20,7 @@ namespace eda {
 
 namespace octree {
 
-class Image {
+class Image3D {
 public:
 	friend BaseImageOctree;
 
@@ -30,9 +30,9 @@ protected:
 	std::vector<std::vector<Pixel> > grid_;
 
 public:
-	Image(const Image &);
-	Image(int, int);
-	Image(BaseImageOctree &);
+	Image3D(const Image3D &);
+	Image3D(int, int);
+	Image3D(BaseImageOctree &);
 
 	int width();
 	int height();

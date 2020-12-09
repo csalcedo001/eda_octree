@@ -18,7 +18,7 @@ BaseImageOctree::BaseImageOctree(int width, int height, double threshold) :
 	threshold_(threshold)
 { }
 
-BaseImageOctree::BaseImageOctree(Image &image, double threshold) :
+BaseImageOctree::BaseImageOctree(Image3D &image, double threshold) :
 	BaseOctree<Pixel, Node<Pixel> >(),
 	width_(image.width_),
 	height_(image.height_),

@@ -9,19 +9,19 @@ namespace eda {
 
 namespace octree {
 
-Image::Image(const Image &image) : 
+Image3D::Image3D(const Image3D &image) : 
 	width_(image.width_),
 	height_(image.height_),
 	grid_(image.grid_)
 { }
 
-Image::Image(int width, int height) :
+Image3D::Image3D(int width, int height) :
 	width_(width),
 	height_(height),
 	grid_(height, std::vector<Pixel>(width))
 { }
 
-Image::Image(BaseImageOctree &tree) :
+Image3D::Image3D(BaseImageOctree &tree) :
 	width_(tree.width_),
 	height_(tree.height_),
 	grid_(tree.height_, std::vector<Pixel>(tree.width_))
@@ -29,23 +29,23 @@ Image::Image(BaseImageOctree &tree) :
 	tree.fill(*this);
 }
 
-int Image::width() {
+int Image3D::width() {
 	return this->width_;
 }
 
-int Image::height() {
+int Image3D::height() {
 	return this->height_;
 }
 
-std::vector<std::vector<Pixel> > &Image::grid() {
+std::vector<std::vector<Pixel> > &Image3D::grid() {
 	return this->grid_;
 }
 
-void Image::set_cell(int x, int y, Pixel pixel) {
+void Image3D::set_cell(int x, int y, Pixel pixel) {
 	this->grid_[y][x] = pixel;
 }
 
-void Image::print() {
+void Image3D::print() {
 	for (auto row : this->grid_) {
 		for (auto pixel : row) {
 			std::cout << (pixel.r + pixel.g + pixel.b < 3 * 128 ? '.' : 'X');

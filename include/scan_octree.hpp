@@ -12,14 +12,14 @@ namespace octree {
 class ScanOctree : public BaseImageOctree {
 public:
 	ScanOctree(int, int, double);
-	ScanOctree(Image &, double);
-	void fill(Image &);
+	ScanOctree(Image3D &, double);
+	void fill(Image3D &);
 
 private:
-	void build(Node<Pixel> *&, Image &, int, int, int, int);
-	bool same_color(Image &, int, int, int, int);
-	Pixel average_pixel(Image &, int, int, int, int);
-	void fill(Node<Pixel> *, Image &, int, int, int, int);
+	void build(Node<Pixel> *&, Image3D &, int, int, int, int);
+	bool same_color(Image3D &, int, int, int, int);
+	Pixel average_pixel(Image3D &, int, int, int, int);
+	void fill(Node<Pixel> *, Image3D &, int, int, int, int);
 };
 
 } // namespace octree

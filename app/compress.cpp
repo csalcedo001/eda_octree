@@ -32,7 +32,7 @@ int main(int argc, char **argv) {
 
 	cin >> width >> height;
 
-	eda::octree::Image image(width, height);
+	eda::octree::Image3D image(width, height);
 
 	eda::octree::Pixel pixel;
 

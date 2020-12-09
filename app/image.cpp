@@ -15,7 +15,7 @@ int main() {
 	s.insert(8, 7, 0);
 	s.insert(7, 6, 255);
 
-	eda::octree::Image image(s);
+	eda::octree::Image3D image(s);
 
 	cout << "Print image" << endl;
 	image.print();

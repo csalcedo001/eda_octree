@@ -10,7 +10,7 @@ int main() {
 
 	cin >> n;
 
-	eda::octree::Image image(n, n);
+	eda::octree::Image3D image(n, n);
 
 	int c;
 
@@ -24,7 +24,7 @@ int main() {
 
 	eda::octree::ScanOctree scan_octree(image, 1);
 
-	eda::octree::Image reconstructed_image(scan_octree);
+	eda::octree::Image3D reconstructed_image(scan_octree);
 
 	cout << "Input image:" << endl;
 	image.print();

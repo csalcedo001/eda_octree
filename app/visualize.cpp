@@ -10,7 +10,7 @@ int main() {
 
 	cin >> width >> height;
 
-	eda::octree::Image image(width, height);
+	eda::octree::Image3D image(width, height);
 
 	int c;
 

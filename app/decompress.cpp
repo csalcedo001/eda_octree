@@ -35,7 +35,7 @@ int main(int argc, char **argv) {
 
 	octree.load(octree_file);
 
-	eda::octree::Image image(octree);
+	eda::octree::Image3D image(octree);
 
 	image_file << image.width() << ' ' << image.height() << endl;
 

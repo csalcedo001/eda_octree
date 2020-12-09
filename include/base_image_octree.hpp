@@ -25,7 +25,7 @@ namespace octree {
 
 class BaseImageOctree : public BaseOctree<Pixel, Node<Pixel> > {
 public:
-	friend Image;
+	friend Image3D;
 
 protected:
 	int width_;
@@ -34,7 +34,7 @@ protected:
 
 public:
 	BaseImageOctree(int, int, double);
-	BaseImageOctree(Image &, double);
+	BaseImageOctree(Image3D &, double);
 
 	void print_grid();
 	int width();
@@ -44,7 +44,7 @@ protected:
 	void print_grid(Node<Pixel> *, std::vector<std::vector<bool> > &);
 
 public:
-	virtual void fill(Image &) = 0;
+	virtual void fill(Image3D &) = 0;
 
 protected:
 	void save_header(std::ostream &);
