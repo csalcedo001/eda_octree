@@ -31,7 +31,7 @@ int main(int argc, char **argv) {
 	}
 
 	// TODO: update data loading to restore image width and height
-	eda::octree::ScanOctree octree(0, 0, 0, 0);
+	eda::octree::ScanOctree octree(0, 0, 0);
 
 	octree.load(octree_file);
 

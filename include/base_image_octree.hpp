@@ -31,11 +31,10 @@ protected:
 	int width_;
 	int height_;
 	int depth_;
-	double threshold_;
 
 public:
-	BaseImageOctree(int, int, int, double);
-	BaseImageOctree(Image3D &, double);
+	BaseImageOctree(int, int, int);
+	BaseImageOctree(Image3D &);
 
 	// void print_grid();
 	int width();

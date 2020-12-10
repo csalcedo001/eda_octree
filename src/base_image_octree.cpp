@@ -11,20 +11,18 @@ namespace eda {
 
 namespace octree {
 
-BaseImageOctree::BaseImageOctree(int width, int height, int depth, double threshold) :
+BaseImageOctree::BaseImageOctree(int width, int height, int depth) :
 	BaseOctree<Pixel, Node<Pixel> >(),
 	width_(width),
 	height_(height),
-	depth_(depth),
-	threshold_(threshold)
+	depth_(depth)
 { }
 
-BaseImageOctree::BaseImageOctree(Image3D &image, double threshold) :
+BaseImageOctree::BaseImageOctree(Image3D &image) :
 	BaseOctree<Pixel, Node<Pixel> >(),
 	width_(image.width_),
 	height_(image.height_),
-	depth_(image.depth_),
-	threshold_(threshold)
+	depth_(image.depth_)
 { }
 
 int BaseImageOctree::width() {

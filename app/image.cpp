@@ -7,7 +7,7 @@
 using namespace std;
 
 int main() {
-	eda::octree::ScanOctree s(10, 10, 10, 1);
+	eda::octree::ScanOctree s(10, 10, 10);
 
 	s.insert(5, 5, 2, 0);
 	s.insert(2, 0, 5, 255);

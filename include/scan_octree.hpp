@@ -11,13 +11,13 @@ namespace octree {
 
 class ScanOctree : public BaseImageOctree {
 public:
-	ScanOctree(int, int, int, double);
+	ScanOctree(int, int, int);
 	ScanOctree(Image3D &, double);
 	void fill(Image3D &);
 
 private:
-	void build(Node<Pixel> *&, Image3D &, int, int, int, int, int, int);
-	bool same_color(Image3D &, int, int, int, int, int, int);
+	void build(Node<Pixel> *&, Image3D &, double, int, int, int, int, int, int);
+	bool same_color(Image3D &, double, int, int, int, int, int, int);
 	Pixel average_pixel(Image3D &, int, int, int, int, int, int);
 	void fill(Node<Pixel> *, Image3D &, int, int, int, int, int, int);
 };
