@@ -53,11 +53,13 @@ void Image3D::set_cell(int x, int y, int z, Pixel pixel) {
 }
 
 void Image3D::print() {
-	for (auto row : this->grid_[0]) {
-		for (auto pixel : row) {
-			std::cout << (pixel.r + pixel.g + pixel.b < 3 * 128 ? '.' : 'X');
+	for (auto matrix : this->grid_) {
+		for (auto row : matrix) {
+			for (auto pixel : row) {
+				std::cout << (pixel.r + pixel.g + pixel.b < 3 * 128 ? '.' : 'X');
+			}
+			std::cout << std::endl;
 		}
-		std::cout << std::endl;
 	}
 }
 
