@@ -4,7 +4,10 @@ build/*
 tests*
 *.DS_Store
 
-!data/*test*
+data
+
+!data/octree
+!data/mri
 
 # Prerequisites
 *.d
