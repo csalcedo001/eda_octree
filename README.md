@@ -18,6 +18,8 @@ Test the plain octree implementation with
 
 There are two evaluated 3D image formats: binary images and RGB images.
 
+### 3D Image Octree
+
 #### Binary images
 
 Binary images consist of pixels whose values are only 0 or 1. In these kind of images, both the original an reconstructed image be the same. We can observe this behavior by running the following lines

@@ -41,6 +41,7 @@ int main(int argc, char **argv) {
 	double x_angle, y_angle, z_angle; // Sexagesimal
 	double slice; // in [0, 1]
 	double side; // Number of pixels in result image
+	double z_scaling_factor = 20;
 
 	cin >> x_angle >> y_angle >> z_angle >> slice >> side;
 
@@ -87,10 +88,11 @@ int main(int argc, char **argv) {
 
 			// v.y *= -1;
 			// v.z *= -1;
+			v.z /= z_scaling_factor;
 
 			result[y][x] = model.color_at(v);
 
-			cout << v.x << ' ' << v.y << ' ' << v.z << ' ' << result[y][x] << endl;
+			// cout << v.x << ' ' << v.y << ' ' << v.z << ' ' << result[y][x] << endl;
 		}
 	}
 
