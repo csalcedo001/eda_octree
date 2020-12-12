@@ -15,6 +15,7 @@ class Image3D;
 
 #include "base_image_octree.hpp"
 #include "pixel.hpp"
+#include "vector.hpp"
 
 namespace eda {
 
@@ -41,6 +42,9 @@ public:
 	std::vector<std::vector<std::vector<Pixel> > > &grid();
 	void set_cell(int, int, int, Pixel);
 	void print();
+
+	Pixel color_at(int, int, int);
+	Pixel color_at(Vector);
 };
 
 } // namespace octree

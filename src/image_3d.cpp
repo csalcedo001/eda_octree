@@ -63,6 +63,18 @@ void Image3D::print() {
 	}
 }
 
+Pixel Image3D::color_at(int x, int y, int z) {
+	return this->grid_[z][y][x];
+}
+
+Pixel Image3D::color_at(Vector v) {
+	if (v.x < 0 || v.x >= this->width_) return Pixel();
+	if (v.y < 0 || v.y >= this->height_) return Pixel();
+	if (v.z < 0 || v.z >= this->depth_) return Pixel();
+
+	return this->grid_[v.z][v.y][v.x];
+}
+
 } // namespace octree
 
 } // namespace eda
