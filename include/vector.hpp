@@ -14,6 +14,9 @@ public:
 	Vector(const Vector &);
 
 	double length();
+	void rotate_x(double);
+	void rotate_y(double);
+	void rotate_z(double);
 
 	Vector operator+(Vector);
 	Vector operator-(Vector);

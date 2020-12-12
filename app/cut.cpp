@@ -1,51 +1,85 @@
 #include <iostream>
+#include <fstream>
 
 #include "image_3d.hpp"
 #include "vector.hpp"
 
 using namespace std;
 
-int main() {
+int main(int argc, char **argv) {
+	if (argc != 2) {
+		cerr << "error: missing argument 'input_file'. Usage:" << argv[0] << " <input_file>" << endl;
+		return 1;
+	}
+
+	string filename(argv[1]);
+	fstream input_file(filename, ios::in);
+
+	if (!input_file.is_open()) {
+		cerr << "error: unable to open " << filename << endl;
+		return 1;
+	}
+
 	int width, height, depth;
 
-	cin >> width >> height >> depth;
+	input_file >> width >> height >> depth;
 
-	eda::octree::Image3D image(width, height, depth);
+	eda::octree::Image3D model(width, height, depth);
 
 	char c;
 
 	for (int z = 0; z < depth; z++) {
 		for (int y = 0; y < height; y++) {
 			for (int x = 0; x < width; x++) {
-				cin >> c;
+				input_file >> c;
 
-				image.set_cell(x, y, z, eda::octree::Pixel((c - '0') * 255));
+				model.set_cell(x, y, z, eda::octree::Pixel((c - '0') * 255));
 			}
 		}
 	}
 
-	// origin: Result image (0, 0) position on 3D space
-	// seg_x: Image's left side as a vector pointing to left bottom corner of image on 3D space
-	// seg_y: Image's top side as a vector pointing to right top corner of image on 3D space
+	double x_angle, y_angle, z_angle; // Sexagesimal
+	double slice; // in [0, 1]
+	double side; // Number of pixels in result image
 
-	eda::octree::Vector origin(0, 5, 0), seg_x(10, 0, 0), seg_y(0, 0, 10);
+	cin >> x_angle >> y_angle >> z_angle >> slice >> side;
 
-	int result_width, result_height;
+	// Cube inscribed in sphere
+	double radius = eda::octree::Vector(width, height, depth).length() / 2.;
 
-	// Image resolution
-	result_width = 40;
-	result_height = 20;
+	// Initially facing towards z axis
+	double corner = radius / 2.;
+	eda::octree::Vector origin(-corner, -corner, 0);
+	eda::octree::Vector left_down_dir(-corner, corner, 0), top_right_dir(corner, -corner, 0);
 
-	vector<vector<eda::octree::Pixel> > result(result_height, vector<eda::octree::Pixel>(result_width));
+	// Perform rotations
+	origin.rotate_x(x_angle);
+	left_down_dir.rotate_x(x_angle);
+	top_right_dir.rotate_x(x_angle);
 
-	for (int y = 0; y < result_height; y++) {
-		for (int x = 0; x < result_width; x++) {
-			eda::octree::Vector dir_x = seg_x - origin;
-			eda::octree::Vector dir_y = seg_y - origin;
+	origin.rotate_y(y_angle);
+	left_down_dir.rotate_y(y_angle);
+	top_right_dir.rotate_y(y_angle);
 
-			result[y][x] = image.color_at(
-				dir_x * x / (result_width - 1) +
-				dir_y * y / (result_height - 1) +
+	origin.rotate_z(z_angle);
+	left_down_dir.rotate_z(z_angle);
+	top_right_dir.rotate_z(z_angle);
+
+	origin.z += slice;
+	left_down_dir.z += slice;
+	top_right_dir.z += slice;
+
+
+	vector<vector<eda::octree::Pixel> > result(side, vector<eda::octree::Pixel>(side));
+
+	for (int y = 0; y < side; y++) {
+		for (int x = 0; x < side; x++) {
+			eda::octree::Vector dir_x = top_right_dir - origin;
+			eda::octree::Vector dir_y = left_down_dir - origin;
+
+			result[y][x] = model.color_at(
+				dir_x * x / (side - 1) +
+				dir_y * y / (side - 1) +
 				origin
 			);
 		}
