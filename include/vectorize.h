@@ -34,3 +34,13 @@ vector<vector<vector<int>>> get_vectors_from_mri(string directory, string filena
 int pixel(vector<vector<vector<int>>> & img, int x, int y, int z) {
 	return img[z][y][x];
 }
+
+CImg<char> get_image_from_matrix(vector<vector<int>> & matrix) {
+    CImg<char> img(matrix[0].size(), matrix.size());
+    for (int y = 0; y < matrix.size(); ++y) {
+        for (int x = 0; x < matrix[y].size(); ++x)
+            img(x,y,0) = matrix[y][x];
+    }
+    return img;
+}
+
