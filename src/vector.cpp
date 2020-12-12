@@ -6,7 +6,7 @@ namespace eda {
 
 namespace octree {
 
-Vector::Vector(int x, int y, int z) :
+Vector::Vector(double x, double y, double z) :
 	x(x),
 	y(y),
 	z(z)
@@ -23,30 +23,30 @@ double Vector::length() {
 }
 
 void Vector::rotate_x(double angle) {
-	int y, z;
+	double y, z;
 
-	y = this->y * cos(angle) - z * sin(angle);
-	z = this->y * sin(angle) + z * cos(angle);
+	y = this->y * cos(angle) - this->z * sin(angle);
+	z = this->y * sin(angle) + this->z * cos(angle);
 
 	this->y = y;
 	this->z = z;
 }
 
 void Vector::rotate_y(double angle) {
-	int x, z;
+	double x, z;
 
-	x = this->x * cos(angle) + z * sin(angle);
-	z = -this->x * sin(angle) + z * cos(angle);
+	x = this->x * cos(angle) + this->z * sin(angle);
+	z = -this->x * sin(angle) + this->z * cos(angle);
 
 	this->x = x;
 	this->z = z;
 }
 
 void Vector::rotate_z(double angle) {
-	int x, y;
+	double x, y;
 
-	x = this->x * cos(angle) - y * sin(angle);
-	y = this->x * sin(angle) + y * cos(angle);
+	x = this->x * cos(angle) - this->y * sin(angle);
+	y = this->x * sin(angle) + this->y * cos(angle);
 
 	this->x = x;
 	this->y = y;

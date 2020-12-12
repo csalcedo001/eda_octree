@@ -10,7 +10,7 @@ public:
 	double x, y, z;
 
 	Vector() = default;
-	Vector(int, int, int);
+	Vector(double, double, double);
 	Vector(const Vector &);
 
 	double length();

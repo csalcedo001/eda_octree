@@ -1,5 +1,6 @@
 #include <iostream>
 #include <fstream>
+#include <cmath>
 
 #include "image_3d.hpp"
 #include "vector.hpp"
@@ -44,13 +45,23 @@ int main(int argc, char **argv) {
 
 	cin >> x_angle >> y_angle >> z_angle >> slice >> side;
 
+	x_angle *= 3.1416 / 180;
+	y_angle *= 3.1416 / 180;
+	z_angle *= 3.1416 / 180;
+
 	// Cube inscribed in sphere
 	double radius = eda::octree::Vector(width, height, depth).length() / 2.;
 
 	// Initially facing towards z axis
-	double corner = radius / 2.;
-	eda::octree::Vector origin(-corner, -corner, 0);
-	eda::octree::Vector left_down_dir(-corner, corner, 0), top_right_dir(corner, -corner, 0);
+	double corner = sqrt(2) * radius / 2.;
+	eda::octree::Vector origin(-corner, corner, 0);
+	eda::octree::Vector left_down_dir(-corner, -corner, 0), top_right_dir(corner, corner, 0);
+
+	cout << origin.x << ' ' << origin.y << ' ' << origin.z << endl;
+	cout << left_down_dir.x << ' ' << left_down_dir.y << ' ' << left_down_dir.z << endl;
+	cout << top_right_dir.x << ' ' << top_right_dir.y << ' ' << top_right_dir.z << endl;
+
+	cout << "..." << endl;
 
 	// Perform rotations
 	origin.rotate_x(x_angle);
@@ -69,19 +80,28 @@ int main(int argc, char **argv) {
 	left_down_dir.z += slice;
 	top_right_dir.z += slice;
 
+	cout << origin.x << ' ' << origin.y << ' ' << origin.z << endl;
+	cout << left_down_dir.x << ' ' << left_down_dir.y << ' ' << left_down_dir.z << endl;
+	cout << top_right_dir.x << ' ' << top_right_dir.y << ' ' << top_right_dir.z << endl;
+
+	cout << "..." << endl;
 
 	vector<vector<eda::octree::Pixel> > result(side, vector<eda::octree::Pixel>(side));
 
+	eda::octree::Vector sphere_center(width / 2., height / 2., depth / 2.);
+	eda::octree::Vector dir_x = top_right_dir - origin;
+	eda::octree::Vector dir_y = left_down_dir - origin;
+
 	for (int y = 0; y < side; y++) {
 		for (int x = 0; x < side; x++) {
-			eda::octree::Vector dir_x = top_right_dir - origin;
-			eda::octree::Vector dir_y = left_down_dir - origin;
+			auto v = dir_x * (double) x / (side - 1.) +
+				dir_y * (double) y / (side - 1.) +
+				origin + sphere_center;
 
-			result[y][x] = model.color_at(
-				dir_x * x / (side - 1) +
-				dir_y * y / (side - 1) +
-				origin
-			);
+			// v.y *= -1;
+			// v.z *= -1;
+
+			result[y][x] = model.color_at(v);
 		}
 	}
 
