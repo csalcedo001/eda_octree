@@ -17,7 +17,7 @@ int main(int argc, char **argv) {
 
 	string directory_name(argv[1]);
 
-	auto raw_image = get_vectors_from_mri(directory_name, "Paciente1CC-27-10-1988- CT from 18-01-2011 S0 I", 39, 40);
+	auto raw_image = eda::octree::get_vectors_from_mri(directory_name, "Paciente1CC-27-10-1988- CT from 18-01-2011 S0 I", 39, 40);
 
 	int width, height, depth;
 
@@ -38,14 +38,15 @@ int main(int argc, char **argv) {
 	double x_angle, y_angle, z_angle; // Sexagesimal
 	double cut_depth; // in [0, 1]?
 	double side; // Number of pixels in result image
-	double z_scaling_factor = 13;
+	double z_scaling_factor = 12;
 
 	cin >> x_angle >> y_angle >> z_angle >> cut_depth >> side;
 
 	auto slice = model.slice(x_angle, y_angle, z_angle, cut_depth, side, z_scaling_factor);
 
-	double threshold = 180;
-	slice.print(threshold);
+	auto img = get_image_from_matrix(slice.grid());
+
+	img.save_bmp("data/slice/result.BMP");
 
 	return 0;
 }
