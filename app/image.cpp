@@ -24,7 +24,7 @@ int main() {
 	// cout << "Print quad tree grid" << endl;
 	// s.print_grid();
 
-	image.set_cell(1, 8, 4, 255);
+	image.cell(1, 8, 4) = 255;
 
 	eda::octree::ScanOctree s2(image, 1);
 

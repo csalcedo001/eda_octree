@@ -1,5 +1,5 @@
-#ifndef OCTREE_IMAGE_HPP_
-#define OCTREE_IMAGE_HPP_
+#ifndef OCTREE_IMAGE_3D_HPP_
+#define OCTREE_IMAGE_3D_HPP_
 
 #include <vector>
 
@@ -40,7 +40,7 @@ public:
 	int height();
 	int depth();
 	std::vector<std::vector<std::vector<Pixel> > > &grid();
-	void set_cell(int, int, int, Pixel);
+	Pixel &cell(int, int, int);
 	void print();
 
 	Pixel color_at(int, int, int);
@@ -51,4 +51,4 @@ public:
 
 } // namespace eda
 
-#endif // OCTREE_IMAGE_HPP_
+#endif // OCTREE_IMAGE_3D_HPP_

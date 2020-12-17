@@ -19,7 +19,7 @@ int main() {
 			for (int x = 0; x < width; x++) {
 				cin >> c;
 
-				image.set_cell(x, y, z, eda::octree::Pixel((c - '0') * 255));
+				image.cell(x, y, z) = (c - '0') * 255;
 			}
 		}
 	}

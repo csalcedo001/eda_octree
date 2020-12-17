@@ -3,6 +3,7 @@
 #include <cmath>
 
 #include "image_3d.hpp"
+#include "image_2d.hpp"
 #include "vector.hpp"
 #include "vectorize.h"
 
@@ -26,24 +27,20 @@ int main(int argc, char **argv) {
 
 	eda::octree::Image3D model(width, height, depth);
 
-	int c;
-
 	for (int z = 0; z < depth; z++) {
 		for (int y = 0; y < height; y++) {
 			for (int x = 0; x < width; x++) {
-				c = raw_image[z][y][x];
-
-				model.set_cell(x, y, z, eda::octree::Pixel(c));
+				model.cell(x, y, z) = raw_image[z][y][x];
 			}
 		}
 	}
 
 	double x_angle, y_angle, z_angle; // Sexagesimal
-	double slice; // in [0, 1]
+	double cut_depth; // in [0, 1]
 	double side; // Number of pixels in result image
 	double z_scaling_factor = 13;
 
-	cin >> x_angle >> y_angle >> z_angle >> slice >> side;
+	cin >> x_angle >> y_angle >> z_angle >> cut_depth >> side;
 
 	x_angle *= 3.1416 / 180;
 	y_angle *= 3.1416 / 180;
@@ -54,10 +51,11 @@ int main(int argc, char **argv) {
 
 	// Initially facing towards z axis
 	double corner = sqrt(2) * radius;
-	eda::octree::Vector origin(-corner, corner, -slice);
-	eda::octree::Vector left_down_dir(-corner, -corner, -slice), top_right_dir(corner, corner, -slice);
+	eda::octree::Vector origin(-corner, corner, -cut_depth);
+	eda::octree::Vector left_down_dir(-corner, -corner, -cut_depth);
+	eda::octree::Vector top_right_dir(corner, corner, -cut_depth);
 
-	// Perform rotations
+	// Perform rotations over image corners
 	origin.rotate_z(-z_angle);
 	left_down_dir.rotate_z(-z_angle);
 	top_right_dir.rotate_z(-z_angle);
@@ -70,6 +68,7 @@ int main(int argc, char **argv) {
 	left_down_dir.rotate_x(x_angle);
 	top_right_dir.rotate_x(x_angle);
 
+	// Invert y and z axis
 	origin.y *= -1;
 	left_down_dir.y *= -1;
 	top_right_dir.y *= -1;
@@ -78,36 +77,28 @@ int main(int argc, char **argv) {
 	left_down_dir.z *= -1;
 	top_right_dir.z *= -1;
 
-	// Image grid
-	vector<vector<eda::octree::Pixel> > result(side, vector<eda::octree::Pixel>(side));
+	// Create blank image to be filled
+	eda::octree::Image2D slice(side, side);
 
 	eda::octree::Vector sphere_center(width / 2., height / 2., depth / 2.);
-	eda::octree::Vector dir_x = top_right_dir - origin;
-	eda::octree::Vector dir_y = left_down_dir - origin;
+	eda::octree::Vector width_vector = top_right_dir - origin;
+	eda::octree::Vector height_vector = left_down_dir - origin;
 
+	// Fill slice with colors from model
 	for (int y = 0; y < side; y++) {
 		for (int x = 0; x < side; x++) {
-			auto v = dir_x * (double) x / (side - 1.) +
-				dir_y * (double) y / (side - 1.) +
+			auto pixel_position = width_vector * x / (side - 1.) +
+				height_vector * y / (side - 1.) +
 				origin + sphere_center;
 
-			// v.y *= -1;
-			// v.z *= -1;
-			v.z /= z_scaling_factor;
+			pixel_position.z /= z_scaling_factor;
 
-			result[y][x] = model.color_at(v);
-
-			// cout << v.x << ' ' << v.y << ' ' << v.z << ' ' << result[y][x] << endl;
+			slice.cell(x, y) = model.color_at(pixel_position);
 		}
 	}
 
 	double threshold = 180;
-	for (auto row : result) {
-		for (auto pixel : row) {
-			cout << (pixel.average() > threshold ? 1 : 0);
-		}
-		cout << endl;
-	}
+	slice.print(threshold);
 
 	return 0;
 }

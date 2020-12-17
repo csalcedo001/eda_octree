@@ -41,7 +41,7 @@ int main(int argc, char **argv) {
 			for (int x = 0; x < width; x++) {
 				cin >> pixel;
 
-				image.set_cell(x, y, z, pixel);
+				image.cell(x, y, z) = pixel;
 			}
 		}
 	}

@@ -34,7 +34,7 @@ int main(int argc, char **argv) {
 			for (int x = 0; x < width; x++) {
 				input_file >> c;
 
-				model.set_cell(x, y, z, eda::octree::Pixel((c - '0') * 255));
+				model.cell(x, y, z) = (c - '0') * 255;
 			}
 		}
 	}

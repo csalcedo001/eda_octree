@@ -48,8 +48,8 @@ std::vector<std::vector<std::vector<Pixel> > > &Image3D::grid() {
 	return this->grid_;
 }
 
-void Image3D::set_cell(int x, int y, int z, Pixel pixel) {
-	this->grid_[z][y][x] = pixel;
+Pixel &Image3D::cell(int x, int y, int z) {
+	return this->grid_[z][y][x];
 }
 
 void Image3D::print() {
