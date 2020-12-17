@@ -16,6 +16,7 @@ class Image3D;
 #include "base_image_octree.hpp"
 #include "pixel.hpp"
 #include "vector.hpp"
+#include "image_2d.hpp"
 
 namespace eda {
 
@@ -45,6 +46,7 @@ public:
 
 	Pixel color_at(int, int, int);
 	Pixel color_at(Vector);
+	Image2D slice(double, double, double, double, int, double);
 };
 
 } // namespace octree
