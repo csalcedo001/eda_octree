@@ -41,7 +41,7 @@ int main(int argc, char **argv) {
 	double x_angle, y_angle, z_angle; // Sexagesimal
 	double slice; // in [0, 1]
 	double side; // Number of pixels in result image
-	double z_scaling_factor = 20;
+	double z_scaling_factor = 13;
 
 	cin >> x_angle >> y_angle >> z_angle >> slice >> side;
 
@@ -53,27 +53,32 @@ int main(int argc, char **argv) {
 	double radius = eda::octree::Vector(width, height, depth).length() / 2.;
 
 	// Initially facing towards z axis
-	double corner = sqrt(2) * radius / 2.;
-	eda::octree::Vector origin(-corner, corner, 0);
-	eda::octree::Vector left_down_dir(-corner, -corner, 0), top_right_dir(corner, corner, 0);
+	double corner = sqrt(2) * radius;
+	eda::octree::Vector origin(-corner, corner, -slice);
+	eda::octree::Vector left_down_dir(-corner, -corner, -slice), top_right_dir(corner, corner, -slice);
 
 	// Perform rotations
+	origin.rotate_z(-z_angle);
+	left_down_dir.rotate_z(-z_angle);
+	top_right_dir.rotate_z(-z_angle);
+
+	origin.rotate_y(-y_angle);
+	left_down_dir.rotate_y(-y_angle);
+	top_right_dir.rotate_y(-y_angle);
+
 	origin.rotate_x(x_angle);
 	left_down_dir.rotate_x(x_angle);
 	top_right_dir.rotate_x(x_angle);
 
-	origin.rotate_y(y_angle);
-	left_down_dir.rotate_y(y_angle);
-	top_right_dir.rotate_y(y_angle);
+	origin.y *= -1;
+	left_down_dir.y *= -1;
+	top_right_dir.y *= -1;
 
-	origin.rotate_z(z_angle);
-	left_down_dir.rotate_z(z_angle);
-	top_right_dir.rotate_z(z_angle);
+	origin.z *= -1;
+	left_down_dir.z *= -1;
+	top_right_dir.z *= -1;
 
-	origin.z += slice;
-	left_down_dir.z += slice;
-	top_right_dir.z += slice;
-
+	// Image grid
 	vector<vector<eda::octree::Pixel> > result(side, vector<eda::octree::Pixel>(side));
 
 	eda::octree::Vector sphere_center(width / 2., height / 2., depth / 2.);
@@ -96,9 +101,10 @@ int main(int argc, char **argv) {
 		}
 	}
 
+	double threshold = 180;
 	for (auto row : result) {
 		for (auto pixel : row) {
-			cout << (pixel.average() > 128 ? 1 : 0);
+			cout << (pixel.average() > threshold ? 1 : 0);
 		}
 		cout << endl;
 	}
