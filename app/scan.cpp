@@ -37,7 +37,7 @@ int main(int argc, char **argv) {
 
 	double x_angle, y_angle, z_angle;
 	int side = (width + height) / 2; // Number of pixels in result image
-	double z_scaling_factor = 12;
+	double z_scaling_factor = 10;
 	double cuts;
 
 	cin >> x_angle >> y_angle >> z_angle >> cuts;

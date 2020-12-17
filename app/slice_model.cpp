@@ -38,7 +38,7 @@ int main(int argc, char **argv) {
 	double x_angle, y_angle, z_angle; // Sexagesimal
 	double cut_depth; // in [0, 1]?
 	double side; // Number of pixels in result image
-	double z_scaling_factor = 12;
+	double z_scaling_factor = 10;
 
 	cin >> x_angle >> y_angle >> z_angle >> cut_depth >> side;
 

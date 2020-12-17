@@ -37,7 +37,7 @@ int main(int argc, char **argv) {
 
 	double angle[3];
 	int side = (width + height) / 2; // Number of pixels in result image
-	double z_scaling_factor = 12;
+	double z_scaling_factor = 10;
 
 	int axis, rotations;
 

@@ -87,7 +87,7 @@ Image2D Image3D::slice(double x_angle, double y_angle, double z_angle, double cu
 	double radius = eda::octree::Vector(this->width_, this->height_, this->depth_).length() / 2.;
 
 	// Initialize image corners facing towards z axis
-	double corner = sqrt(2) * radius;
+	double corner = radius;
 	eda::octree::Vector top_left(-corner, corner, -cut_depth);
 	eda::octree::Vector bottom_left(-corner, -corner, -cut_depth);
 	eda::octree::Vector top_right(corner, corner, -cut_depth);
@@ -117,7 +117,7 @@ Image2D Image3D::slice(double x_angle, double y_angle, double z_angle, double cu
 	// Create blank image to be filled
 	eda::octree::Image2D slice(image_size, image_size);
 
-	eda::octree::Vector sphere_center(this->width_ / 2., this->height_ / 2., this->depth_ / 2.);
+	eda::octree::Vector sphere_center(this->width_ / 2., this->height_ / 2., this->depth_ / 2. * z_scaling_factor);
 	eda::octree::Vector width_vector = top_right - top_left;
 	eda::octree::Vector height_vector = bottom_left - top_left;
 
