@@ -1,10 +1,10 @@
 # Octree
 
-Octree implementation
+Octree implementation.
 
 ## Setup
 
-Run `make` to compile the executables and run tests.
+Run `setup.sh` to create directories and compile executables.
 
 ## Tests
 
@@ -34,6 +34,14 @@ which load a binary 3D image of a sphere. If needed, custom sphere images can be
 
 RGB images are composed of pixels with red, green and blue channels whose values range between 0 and 255.
 
-Example scan from one corner to its oposite
+Example scan, from one corner to its oposite.
 
 ![Corner scan](data/gif/scan_corner.gif)
+
+Generated with
+
+```
+./bin/rgb/scan data/mri/
+```
+
+giving `135 45 0 40` as input.
