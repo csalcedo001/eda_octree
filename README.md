@@ -32,4 +32,8 @@ which load a binary 3D image of a sphere. If needed, custom sphere images can be
 
 #### RGB images
 
+RGB images are composed of pixels with red, green and blue channels whose values range between 0 and 255.
 
+Example scan from one corner to its oposite
+
+![Corner scan](data/gif/scan_corner.gif)
