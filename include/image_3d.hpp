@@ -17,19 +17,17 @@ class Image3D;
 #include "pixel.hpp"
 #include "vector.hpp"
 #include "image_2d.hpp"
+#include "base_image_3d.hpp"
 
 namespace eda {
 
 namespace octree {
 
-class Image3D {
+class Image3D : public BaseImage3D {
 public:
 	friend BaseImageOctree;
 
 protected:
-	int width_;
-	int height_;
-	int depth_;
 	std::vector<std::vector<std::vector<Pixel> > > grid_;
 
 public:
@@ -37,16 +35,12 @@ public:
 	Image3D(int, int, int);
 	Image3D(BaseImageOctree &);
 
-	int width();
-	int height();
-	int depth();
 	std::vector<std::vector<std::vector<Pixel> > > &grid();
 	Pixel &cell(int, int, int);
 	void print();
 
-	Pixel color_at(int, int, int);
-	Pixel color_at(Vector);
-	Image2D slice(double, double, double, double, int, double);
+	Pixel color_at(int, int, int) override;
+	Pixel color_at(Vector) override;
 };
 
 } // namespace octree
