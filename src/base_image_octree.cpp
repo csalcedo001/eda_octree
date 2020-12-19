@@ -4,8 +4,10 @@
 
 #include "base_octree.hpp"
 #include "image_3d.hpp"
+#include "base_image_3d.hpp"
 #include "node.hpp"
 #include "pixel.hpp"
+#include "vector.hpp"
 
 namespace eda {
 
@@ -13,54 +15,31 @@ namespace octree {
 
 BaseImageOctree::BaseImageOctree(int width, int height, int depth) :
 	BaseOctree<Pixel, Node<Pixel> >(),
-	width_(width),
-	height_(height),
-	depth_(depth)
+	BaseImage3D(width, height, depth)
 { }
 
 BaseImageOctree::BaseImageOctree(Image3D &image) :
 	BaseOctree<Pixel, Node<Pixel> >(),
-	width_(image.width_),
-	height_(image.height_),
-	depth_(image.depth_)
+	BaseImage3D(image.width_, image.height_, image.depth_)
 { }
 
-int BaseImageOctree::width() {
-	return this->width_;
+Pixel BaseImageOctree::color_at(int x, int y, int z) {
+	if (x < 0 || x >= this->width_) return Pixel();
+	if (y < 0 || y >= this->height_) return Pixel();
+	if (z < 0 || z >= this->depth_) return Pixel();
+
+	return this->color_at(this->head_, x, y, z);
 }
 
-int BaseImageOctree::height() {
-	return this->height_;
+Pixel BaseImageOctree::color_at(Vector v) {
+	return this->color_at(v.x, v.y, v.z);
 }
 
-int BaseImageOctree::depth() {
-	return this->depth_;
-}
+Pixel BaseImageOctree::color_at(Node<Pixel> *node, int x, int y, int z) {
+	// TODO: Implement recursive call to find color
 
-// void BaseImageOctree::print_grid() {
-// 	std::vector<std::vector<bool> > grid(this->height_, std::vector<bool>(this->width_, false));
-// 
-// 	this->print_grid(this->head_, grid);
-// 
-// 	for (auto row : grid) {
-// 		for (auto cell : row) {
-// 			std::cout << (cell ? 'X' : '.');
-// 		}
-// 		std::cout << std::endl;
-// 	}
-// }
-// 
-// void BaseImageOctree::print_grid(Node<Pixel> *node, std::vector<std::vector<bool> > &grid) {
-// 	if (node != nullptr) {
-// 		this->print_grid(node->children_[0], grid);
-// 		this->print_grid(node->children_[1], grid);
-// 
-// 		grid[node->y_][node->x_] = true;
-// 
-// 		this->print_grid(node->children_[2], grid);
-// 		this->print_grid(node->children_[3], grid);
-// 	}
-// }
+	return Pixel();
+}
 
 void BaseImageOctree::save_header(std::ostream &os) {
 	os.write((char *) &this->width_, sizeof(int));

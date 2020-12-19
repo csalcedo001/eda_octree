@@ -16,40 +16,37 @@ class BaseImageOctree;
 
 #include "base_octree.hpp"
 #include "image_3d.hpp"
+#include "base_image_3d.hpp"
 #include "node.hpp"
 #include "pixel.hpp"
+#include "vector.hpp"
 
 namespace eda {
 
 namespace octree {
 
-class BaseImageOctree : public BaseOctree<Pixel, Node<Pixel> > {
+class BaseImageOctree :
+	public BaseOctree<Pixel, Node<Pixel> >,
+	public BaseImage3D
+{
 public:
 	friend Image3D;
-
-protected:
-	int width_;
-	int height_;
-	int depth_;
 
 public:
 	BaseImageOctree(int, int, int);
 	BaseImageOctree(Image3D &);
 
-	// void print_grid();
-	int width();
-	int height();
-	int depth();
+	Pixel color_at(int, int, int) override;
+	Pixel color_at(Vector) override;
 
 protected:
-	// void print_grid(Node<Pixel> *, std::vector<std::vector<bool> > &);
+	Pixel color_at(Node<Pixel> *, int, int, int);
+
+	void save_header(std::ostream &) override;
+	void load_header(std::istream &) override;
 
 public:
 	virtual void fill(Image3D &) = 0;
-
-protected:
-	void save_header(std::ostream &);
-	void load_header(std::istream &);
 };
 
 } // namespace octree

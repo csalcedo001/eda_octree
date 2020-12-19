@@ -1,5 +1,8 @@
 #include "base_image_3d.hpp"
 
+#include "pixel.hpp"
+#include "vector.hpp"
+
 namespace eda {
 
 namespace octree {
