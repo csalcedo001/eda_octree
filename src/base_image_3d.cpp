@@ -49,9 +49,9 @@ Image2D BaseImage3D::slice(double x_angle, double y_angle, double z_angle, doubl
 	bottom_left.rotate_y(-y_angle);
 	top_right.rotate_y(-y_angle);
 
-	top_left.rotate_x(x_angle);
-	bottom_left.rotate_x(x_angle);
-	top_right.rotate_x(x_angle);
+	top_left.rotate_x(-x_angle);
+	bottom_left.rotate_x(-x_angle);
+	top_right.rotate_x(-x_angle);
 
 	// Invert y and z axis
 	top_left.y *= -1;

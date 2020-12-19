@@ -4,10 +4,11 @@ TARGET = bin/main
 DIRS = bin build
 
 SRCFILES = $(shell find src -type f -name '*.cpp')
-APPFILES = $(wildcard app/*.cpp)
+APPFILES = $(shell find app -type f -name '*.cpp')
 
-OBJFILES = $(patsubst src/%.cpp, build/%.o, $(wildcard src/*.cpp))
-BINFILES = $(patsubst app/%.cpp, bin/%, $(wildcard app/*.cpp))
+
+OBJFILES = $(patsubst src/%.cpp, build/%.o, $(SRCFILES))
+BINFILES = $(patsubst app/%.cpp, bin/%, $(APPFILES))
 
 .PRECIOUS: $(OBJFILES)
 
