@@ -28,6 +28,8 @@ Pixel BaseImageOctree::color_at(int x, int y, int z) {
 	if (y < 0 || y >= this->height_) return Pixel();
 	if (z < 0 || z >= this->depth_) return Pixel();
 
+	if (this->head_ == nullptr) return Pixel();
+
 	return this->color_at(this->head_, x, y, z);
 }
 
@@ -36,9 +38,15 @@ Pixel BaseImageOctree::color_at(Vector v) {
 }
 
 Pixel BaseImageOctree::color_at(Node<Pixel> *node, int x, int y, int z) {
-	// TODO: Implement recursive call to find color
+	bool right_side = x > node->x_;
+	bool down_side = y > node->y_;
+	bool back_side = z > node->z_;
 
-	return Pixel();
+	int index = (back_side << 2) + (down_side << 1) + right_side;
+
+	if (node->children_[index] == nullptr) return node->data_;
+
+	return this->color_at(node->children_[index], x, y, z);
 }
 
 void BaseImageOctree::save_header(std::ostream &os) {
