@@ -1,5 +1,5 @@
 CXX = g++
-CXXFLAGS = -std=c++17 -L/opt/X11/lib -I /opt/X11/include -I include -o $@ -lX11
+CXXFLAGS = -std=c++17 -L/opt/X11/lib -I /opt/X11/include -I include -o $@ -lX11 -lpthread
 TARGET = bin/main
 DIRS = bin build
 
@@ -16,7 +16,7 @@ all: $(BINFILES)
 
 bin/%: app/%.cpp $(OBJFILES)
 	mkdir -p "$(@D)"
-	$(CXX) $(CXXFLAGS) $^
+	$(CXX) $^ $(CXXFLAGS)
 
 build/%.o: src/%.cpp include/%.hpp
 	mkdir -p "$(@D)"
