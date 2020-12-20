@@ -44,10 +44,17 @@ Both the octree and the grid representations of a 3D image implement an slicing 
 ./bin/measure/time data/mri <structure>
 ```
 
-and give the number of queries as input. _Note_: when the selected structure is octree, the first argument is **always** the threshold the octree uses to compress the image.
+and give the number of queries as input.
+
+_Note_: when the selected structure is 'octree', the first argument is **always** the threshold the octree uses to compress the image.
 
 ### RAM usage
 
+RAM usage varies with different values of threshold for octree image compression. An estimate of RAM in use when an image is loaded as a grid or an octree can be obtained by executing the following lines
+
+```
+./bin/measure/ram data/mri <structure>
+```
 
 ## Results
 
