@@ -3,6 +3,7 @@ bin/*
 build/*
 tests*
 *.DS_Store
+result.gif
 
 data
 
