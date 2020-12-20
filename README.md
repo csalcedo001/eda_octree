@@ -34,14 +34,80 @@ which load a binary 3D image of a sphere. If needed, custom sphere images can be
 
 RGB images are composed of pixels with red, green and blue channels whose values range between 0 and 255.
 
-Example scan, from one corner to its oposite.
+##### Examples
 
-![Corner scan](data/gif/scan_corner.gif)
+Example scan, from frontal face position towards the back.
+
+**Pixel grid:**
+
+![Corner scan](docs/gif/grid_frontal_scan.gif)
 
 Generated with
 
 ```
-./bin/rgb/scan data/mri/
+./bin/rgb/scan data/mri/ grid < data/input/grid_frontal_scan.in
 ```
 
-giving `135 45 0 40` as input.
+**Octree:**
+
+![Corner scan](docs/gif/octree_frontal_scan.gif)
+
+Generated with
+
+```
+./bin/rgb/scan data/mri/ octree < data/input/octree_frontal_scan.in
+```
+
+Example scan, from one corner to its oposite of the 3D image.
+
+**Pixel grid:**
+
+![Corner scan](data/gif/grid_corner_scan.gif)
+
+Generated with
+
+```
+./bin/rgb/scan data/mri/ grid < data/input/grid_corner_scan.in
+```
+
+**Octree:**
+
+![Corner scan](data/gif/octree_corner_scan.gif)
+
+Generated with
+
+```
+./bin/rgb/scan data/mri/ octree < data/input/octree_corner_scan.in
+```
+
+Example rotation, starting at a frontal position and rotationg on the y axis.
+
+**Pixel grid:**
+
+![Corner scan](data/gif/grid_rotation.gif)
+
+Generated with
+
+```
+./bin/rgb/rotation data/mri/ grid < data/input/grid_rotation.in
+```
+
+**Octree:**
+
+![Corner scan](data/gif/octree_rotation.gif)
+
+Generated with
+
+```
+./bin/rgb/rotation data/mri/ octree < data/input/octree_rotation.in
+```
+
+
+
+##### Examples
+
+| Grid | Octree |
+| ---- | ------ |
+| ![Grid frontal scan](docs/gif/grid_frontal_scan.gif)<br> `./bin/rgb/scan data/mri/ grid < data/input/grid_frontal_scan.in` | ![Grid corner scan](docs/gif/octree_frontal_scan.gif)<br> `./bin/rgb/scan data/mri/ octree < data/input/octree_frontal_scan.in` |
+| ![Grid corner scan](docs/gif/grid_corner_scan.gif)<br> `./bin/rgb/scan data/mri/ grid < data/input/grid_corner_scan.in` | ![Octree corner scan](docs/gif/octree_corner_scan.gif)<br> `./bin/rgb/scan data/mri/ octree < data/input/octree_corner_scan.in` |
+| ![Grid rotation](docs/gif/grid_rotation.gif)<br> `./bin/rgb/rotation data/mri/ grid < data/input/grid_rotation.in` | ![Octree rotation](docs/gif/octree_rotation.gif)<br> `./bin/rgb/rotation data/mri/ octree < data/input/octree_rotation.in` |

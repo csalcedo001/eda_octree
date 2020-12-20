@@ -40,7 +40,7 @@ int main(int argc, char **argv) {
 	eda::octree::BaseImage3D *model;
 	string structure_name(argv[2]);
 
-	if (structure_name == "box") {
+	if (structure_name == "grid") {
 		model = image;
 	}
 	else if (structure_name == "octree") {
@@ -53,7 +53,7 @@ int main(int argc, char **argv) {
 		delete image;
 	}
 	else {
-		cerr << "error: unsupported structure '" << structure_name << "'. Supported structures are 'box' and 'octree'." << endl;
+		cerr << "error: unsupported structure '" << structure_name << "'. Supported structures are 'grid' and 'octree'." << endl;
 		return 1;
 	}
 		

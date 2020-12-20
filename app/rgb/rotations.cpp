@@ -6,12 +6,13 @@
 #include "image_2d.hpp"
 #include "vector.hpp"
 #include "vectorize.h"
+#include "scan_octree.hpp"
 
 using namespace std;
 
 int main(int argc, char **argv) {
-	if (argc != 2) {
-		cerr << "error: missing argument 'input_directory'. Usage:" << argv[0] << " <input_directory>" << endl;
+	if (argc != 3) {
+		cerr << "error: missing arguments. Usage:" << argv[0] << " <input_directory> <structure>" << endl;
 		return 1;
 	}
 
@@ -25,30 +26,53 @@ int main(int argc, char **argv) {
 	height = raw_image[0].size();
 	depth = raw_image.size();
 
-	eda::octree::Image3D model(width, height, depth);
+	eda::octree::Image3D *image = new eda::octree::Image3D(width, height, depth);
 
 	for (int z = 0; z < depth; z++) {
 		for (int y = 0; y < height; y++) {
 			for (int x = 0; x < width; x++) {
-				model.cell(x, y, z) = raw_image[z][y][x];
+				image->cell(x, y, z) = raw_image[z][y][x];
 			}
 		}
 	}
 
+
+	eda::octree::BaseImage3D *model;
+	string structure_name(argv[2]);
+
+	if (structure_name == "grid") {
+		model = image;
+	}
+	else if (structure_name == "octree") {
+		double threshold;
+
+		cin >> threshold;
+
+		model = new eda::octree::ScanOctree(*image, threshold);
+
+		delete image;
+	}
+	else {
+		cerr << "error: unsupported structure '" << structure_name << "'. Supported structures are 'grid' and 'octree'." << endl;
+		return 1;
+	}
+
+	double x_angle, y_angle, z_angle;
 	double angle[3];
 	int side = (width + height) / 2; // Number of pixels in result image
 	double z_scaling_factor = 10;
 
-	int axis, rotations;
+	char axis;
+	int rotations;
 
-	cin >> axis >> rotations;
+	cin >> x_angle >> y_angle >> z_angle >> axis >> rotations;
 
 	angle[0] = angle[1] = angle[2] = 0;
 
 	for (int rotation = 0; rotation < rotations; rotation++) {
-		angle[axis] = 360. * rotation / rotations;
+		angle[axis - 'x'] = 360. * rotation / rotations;
 
-		auto slice = model.slice(angle[0], angle[1], angle[2], 0, side, z_scaling_factor);
+		auto slice = model->slice(x_angle + angle[0], y_angle + angle[1], z_angle + angle[2], 0, side, z_scaling_factor);
 		auto img = get_image_from_matrix(slice.grid());
 
 		string filename = "data/rotation/result_" + to_string(rotation) + ".BMP";

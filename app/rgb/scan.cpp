@@ -6,12 +6,13 @@
 #include "image_2d.hpp"
 #include "vector.hpp"
 #include "vectorize.h"
+#include "scan_octree.hpp"
 
 using namespace std;
 
 int main(int argc, char **argv) {
-	if (argc != 2) {
-		cerr << "error: missing argument 'input_directory'. Usage:" << argv[0] << " <input_directory>" << endl;
+	if (argc != 3) {
+		cerr << "error: missing arguments. Usage:" << argv[0] << " <input_directory> <structure>" << endl;
 		return 1;
 	}
 
@@ -25,14 +26,35 @@ int main(int argc, char **argv) {
 	height = raw_image[0].size();
 	depth = raw_image.size();
 
-	eda::octree::Image3D model(width, height, depth);
+	eda::octree::Image3D *image = new eda::octree::Image3D(width, height, depth);
 
 	for (int z = 0; z < depth; z++) {
 		for (int y = 0; y < height; y++) {
 			for (int x = 0; x < width; x++) {
-				model.cell(x, y, z) = raw_image[z][y][x];
+				image->cell(x, y, z) = raw_image[z][y][x];
 			}
 		}
+	}
+
+
+	eda::octree::BaseImage3D *model;
+	string structure_name(argv[2]);
+
+	if (structure_name == "grid") {
+		model = image;
+	}
+	else if (structure_name == "octree") {
+		double threshold;
+
+		cin >> threshold;
+
+		model = new eda::octree::ScanOctree(*image, threshold);
+
+		delete image;
+	}
+	else {
+		cerr << "error: unsupported structure '" << structure_name << "'. Supported structures are 'grid' and 'octree'." << endl;
+		return 1;
 	}
 
 	double x_angle, y_angle, z_angle;
@@ -48,7 +70,7 @@ int main(int argc, char **argv) {
 	for (double cut = 0; cut <= cuts; cut++) {
 		cut_depth = 2 * radius * cut / cuts - radius;
 
-		auto slice = model.slice(x_angle, y_angle, z_angle, cut_depth, side, z_scaling_factor);
+		auto slice = model->slice(x_angle, y_angle, z_angle, cut_depth, side, z_scaling_factor);
 		auto img = get_image_from_matrix(slice.grid());
 
 		string filename = "data/scan/result_" + to_string((int) cut) + ".BMP";
