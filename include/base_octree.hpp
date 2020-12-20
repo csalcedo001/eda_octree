@@ -20,6 +20,7 @@ public:
 	void clear();
 	void save(std::ostream &);
 	void load(std::istream &);
+	size_t getRAM();
 
 protected:
 	void insert(Node *&, int, int, int, T);
@@ -29,6 +30,7 @@ protected:
 	Node *load(long long, std::istream &);
 	virtual void save_header(std::ostream &);
 	virtual void load_header(std::istream &);
+	size_t getRAM(Node *);
 };
 
 } // namespace octree

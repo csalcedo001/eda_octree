@@ -95,6 +95,11 @@ void BaseOctree<T, Node>::load(std::istream &is) {
 }
 
 template <typename T, class Node>
+size_t BaseOctree<T, Node>::getRAM() {
+	return getRAM(head_);
+}
+
+template <typename T, class Node>
 void BaseOctree<T, Node>::insert(Node *&node, int x, int y, int z, T data) {
 	if (node == nullptr) {
 		node = new Node(x, y, z, data);
@@ -198,6 +203,19 @@ void BaseOctree<T, Node>::save_header(std::ostream &os) { }
 
 template <typename T, class Node>
 void BaseOctree<T, Node>::load_header(std::istream &is) { }
+
+template <typename T, class Node>
+size_t BaseOctree<T, Node>::getRAM(Node *node) {
+	if (node) {
+		size_t size = node->getRAM();
+		for (int i = 0; i < 8; i++) {
+            size += getRAM(node->children_[i]);
+        }
+        return size;
+	}
+	return 0;
+}
+
 
 } // namespace octree
 

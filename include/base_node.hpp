@@ -17,6 +17,7 @@ public:
 public:
 	BaseNode(int, int, int, T &);
 	bool is_leave();
+	size_t getRAM();
 };
 
 } // namespace octree

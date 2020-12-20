@@ -32,6 +32,11 @@ bool BaseNode<T, Node>::is_leave() {
 	return true;
 }
 
+template <typename T, class Node>
+size_t BaseNode<T, Node>::getRAM() {
+	return sizeof(int)*3 + sizeof(T) + sizeof(Node *)*8;
+}
+
 } // namespace octree
 
 } // namespace eda
