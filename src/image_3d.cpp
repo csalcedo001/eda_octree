@@ -60,6 +60,10 @@ Pixel Image3D::color_at(Vector v) {
 	return this->color_at(v.x, v.y, v.z);
 }
 
+size_t Image3D::getRAM() {
+	return sizeof(this->grid_) + 3 * sizeof(int);
+}
+
 } // namespace octree
 
 } // namespace eda

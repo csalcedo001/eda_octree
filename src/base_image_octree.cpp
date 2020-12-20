@@ -61,6 +61,10 @@ void BaseImageOctree::load_header(std::istream &is) {
 	is.read((char *) &this->depth_, sizeof(int));
 }
 
+size_t BaseImageOctree::getRAM() {
+	return BaseOctree::getRAM();
+}
+
 } // namespace octree
 
 } // namespace eda

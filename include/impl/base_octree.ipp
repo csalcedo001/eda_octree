@@ -96,7 +96,7 @@ void BaseOctree<T, Node>::load(std::istream &is) {
 
 template <typename T, class Node>
 size_t BaseOctree<T, Node>::getRAM() {
-	return getRAM(head_);
+	return this->getRAM(this->head_);
 }
 
 template <typename T, class Node>
@@ -206,14 +206,15 @@ void BaseOctree<T, Node>::load_header(std::istream &is) { }
 
 template <typename T, class Node>
 size_t BaseOctree<T, Node>::getRAM(Node *node) {
-	if (node) {
-		size_t size = node->getRAM();
-		for (int i = 0; i < 8; i++) {
-            size += getRAM(node->children_[i]);
-        }
-        return size;
+	if (node == nullptr) return 0;
+	
+	size_t size = node->getRAM();
+
+	for (int i = 0; i < 8; i++) {
+	    size += this->getRAM(node->children_[i]);
 	}
-	return 0;
+
+	return size;
 }
 
 

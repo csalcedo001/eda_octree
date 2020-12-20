@@ -44,6 +44,7 @@ protected:
 
 	void save_header(std::ostream &) override;
 	void load_header(std::istream &) override;
+	size_t getRAM() override;
 
 public:
 	virtual void fill(Image3D &) = 0;

@@ -27,6 +27,7 @@ public:
 public:
 	virtual Pixel color_at(int, int, int) = 0;
 	virtual Pixel color_at(Vector) = 0;
+	virtual size_t getRAM() = 0;
 };
 
 } // namespace octree

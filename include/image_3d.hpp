@@ -41,6 +41,7 @@ public:
 
 	Pixel color_at(int, int, int) override;
 	Pixel color_at(Vector) override;
+	size_t getRAM() override;
 };
 
 } // namespace octree
