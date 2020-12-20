@@ -32,7 +32,9 @@ which load a binary 3D image of a sphere. If needed, custom sphere images can be
 
 #### RGB images
 
-RGB images are composed of pixels with red, green and blue channels whose values range between 0 and 255. 
+RGB images are composed of pixels with red, green and blue channels whose values range between 0 and 255. In order to build a lightweight octree in this setup, we require a threshold to determine when to divide a quadrant. When the difference between the minimum and maximum average channel value is below the threshold, all the pixels of the quadrant are considered of the same color; hence, the quadrant is no further divided.
+
+
 
 ## Tests
 
@@ -44,9 +46,9 @@ Both the octree and grid representations of a 3D image implement a slicing funct
 ./bin/measure/time data/mri <structure>
 ```
 
-and give the number of queries as input.
+and give the number of queries as input. In this program, the structure is required to perform the given number of random slices, each of which is saved in `data/random`.
 
-_Note_: when the selected structure is 'octree', the first argument is **always** the threshold the octree uses to compress the image. Sample inputs for both structures can be fount at `data/input`.
+_Note_: when the selected structure is 'octree', the first input is **always** the threshold the octree uses to compress the image. Sample inputs for both structures can be fount at `data/input`.
 
 ### RAM usage
 
