@@ -1,6 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include <cmath>
+#include <iomanip>
 
 #include "scan_octree.hpp"
 #include "image_3d.hpp"
@@ -56,8 +57,11 @@ int main(int argc, char **argv) {
 		cerr << "error: unsupported structure '" << structure_name << "'. Supported structures are 'grid' and 'octree'." << endl;
 		return 1;
 	}
-		
-	cout << model->getRAM() << endl;
+
+	structure_name[0] += 'A' - 'a';
+	
+	cout << setprecision(4);
+	cout << structure_name << " RAM usage: " << (double) model->getRAM() / 1024. / 1024. << " MB" << endl;
 
 	return 0;
 }

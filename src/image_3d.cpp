@@ -61,7 +61,7 @@ Pixel Image3D::color_at(Vector v) {
 }
 
 size_t Image3D::getRAM() {
-	return sizeof(this->grid_) + 3 * sizeof(int);
+	return sizeof(this->grid_) + 3 * sizeof(int) + this->width_ * this->height_ * this->depth_ * sizeof(Pixel);
 }
 
 } // namespace octree
