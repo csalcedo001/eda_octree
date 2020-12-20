@@ -1,6 +1,8 @@
 #include <iostream>
 #include <fstream>
 #include <cmath>
+#include <iomanip>
+#include <sstream>
 
 #include "image_3d.hpp"
 #include "image_2d.hpp"
@@ -75,7 +77,13 @@ int main(int argc, char **argv) {
 		auto slice = model->slice(x_angle + angle[0], y_angle + angle[1], z_angle + angle[2], 0, side, z_scaling_factor);
 		auto img = get_image_from_matrix(slice.grid());
 
-		string filename = "data/rotation/result_" + to_string(rotation) + ".BMP";
+		stringstream ss;
+
+		ss << setw(3) << setfill('0') << rotation;
+
+		string index = ss.str();
+
+		string filename = "data/rotation/result_" + index + ".BMP";
 		img.save_bmp(filename.c_str());
 	}
 

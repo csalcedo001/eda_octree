@@ -1,6 +1,8 @@
 #include <iostream>
 #include <fstream>
 #include <cmath>
+#include <iomanip>
+#include <sstream>
 
 #include "image_3d.hpp"
 #include "image_2d.hpp"
@@ -73,7 +75,13 @@ int main(int argc, char **argv) {
 		auto slice = model->slice(x_angle, y_angle, z_angle, cut_depth, side, z_scaling_factor);
 		auto img = get_image_from_matrix(slice.grid());
 
-		string filename = "data/scan/result_" + to_string((int) cut) + ".BMP";
+		stringstream ss;
+
+		ss << setw(3) << setfill('0') << cut;
+
+		string index = ss.str();
+
+		string filename = "data/scan/result_" + index + ".BMP";
 		img.save_bmp(filename.c_str());
 	}
 
