@@ -32,13 +32,13 @@ which load a binary 3D image of a sphere. If needed, custom sphere images can be
 
 #### RGB images
 
-RGB images are composed of pixels with red, green and blue channels whose values range between 0 and 255.
+RGB images are composed of pixels with red, green and blue channels whose values range between 0 and 255. 
 
 ## Tests
 
 ### Execution time
 
-Both the octree and the grid representations of a 3D image implement an slicing function. To measure and compare the execution time of both structures we can run
+Both the octree and grid representations of a 3D image implement a slicing function. To measure and compare the execution time of both structures we can run
 
 ```
 ./bin/measure/time data/mri <structure>
@@ -46,7 +46,7 @@ Both the octree and the grid representations of a 3D image implement an slicing 
 
 and give the number of queries as input.
 
-_Note_: when the selected structure is 'octree', the first argument is **always** the threshold the octree uses to compress the image.
+_Note_: when the selected structure is 'octree', the first argument is **always** the threshold the octree uses to compress the image. Sample inputs for both structures can be fount at `data/input`.
 
 ### RAM usage
 
