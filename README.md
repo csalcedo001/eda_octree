@@ -10,7 +10,7 @@ Run `setup.sh` to create directories and compile executables.
 
 ### Octree
 
-Test the plain octree implementation with
+Test a plain octree implementation with
 
 ```
 ./bin/octree/octree < data/octree/test.in
