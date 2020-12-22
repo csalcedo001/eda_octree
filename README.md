@@ -86,6 +86,8 @@ With an encapsulated slicing method implemented, we can perform multiple slices 
 ./bin/rgb/scan data/mri octree < data/input/octree_frontal_scan.in
 ```
 
+Scan images are saved in `data/scan`.
+
 ### Rotation
 
 As with the scanning program, we can create the illusion of rotation along a given axis with `bin/rgb/rotation`. The first arguments are the rotation angles along the x axis, y axis and z axis in that order. The second argument is the axis in which the rotation is performed, given as a char. The third argument is the number of slices to take for a 360 degree rotation. The call from below performs a sample rotation
@@ -93,6 +95,8 @@ As with the scanning program, we can create the illusion of rotation along a giv
 ```
 ./bin/rgb/rotation data/mri grid < data/input/grid_rotation.in
 ```
+
+Rotation images are saved in `data/rotation`.
 
 Check the section of examples for animated GIFs of scans and rotations on both grid and octree structures.
 
