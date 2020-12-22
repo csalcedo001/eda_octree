@@ -76,7 +76,7 @@ The main functionality implemented over 3D image model representations for this 
 
 which saves the following image as `data/slice/result.BMP`.
 
-![Sample slice](docs/slice/image/grid_corner_slice.BMP)
+![Sample slice](docs/image/grid_corner_slice.BMP)
 
 ### Scan
 
