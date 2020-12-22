@@ -51,20 +51,20 @@ RGB 3D images are composed of pixels with red, green and blue channels whose val
 
 ## Usage
 
-Two structures to represent a 3D image can be chosen for the programs of this section: grid image representation and octree image representation. Each of the programs of this section require two arguments:
+Two structures to represent a 3D image can be chosen for the programs of this section: 'grid' image representation and 'octree' image representation. Each of the programs of this section require two arguments:
 
 1. path: Directory in which images of the same MRI are stored.
 2. structure: Data structure used to represent the image after loading it to memory. Supported structures are 'grid' and 'octree'. 
 
-An example call is
+A template for these calls is
 
 ```
-./bin/rgb/slice <path> <structure>
+./bin/rgb/<program> <path> <structure>
 ```
 
 During execution the program will wait for user input. The input format can vary according to the selected structure and program.
 
-**_Note_**: when the selected structure is 'octree', the first input is **always** the threshold the octree uses to compress the image. A 'grid' does not require such parameter. Examples of inputs for each program and structure can be found on 'data/input'.
+**_Note_**: when the selected structure is 'octree', the first input is **always** the threshold the octree uses to compress the image. A 'grid' does not require such parameter. Examples of inputs for each program and structure can be found on `data/input`.
 
 ### Slicing
 
@@ -73,6 +73,10 @@ The main functionality implemented over 3D image model representations for this 
 ```
 ./bin/rgb/slice data/mri grid < data/input/grid_corner_slice.in
 ```
+
+which saves the following image as `data/slice/result.BMP`.
+
+![Sample slice](docs/slice/image/grid_corner_slice.BMP)
 
 ### Scan
 
@@ -90,6 +94,8 @@ As with the scanning program, we can create the illusion of rotation along a giv
 ./bin/rgb/rotation data/mri grid < data/input/grid_rotation.in
 ```
 
+Check the section of examples for animated GIFs of scans and rotations on both grid and octree structures.
+
 ## Tests
 
 ### Execution time
@@ -97,7 +103,7 @@ As with the scanning program, we can create the illusion of rotation along a giv
 Both the octree and grid representations of a 3D image implement a slicing function. To measure and compare the execution time of both structures we can run
 
 ```
-./bin/measure/time data/mri <structure>
+./bin/measure/time <path> <structure>
 ```
 
 and give the number of queries as input. In this program, the structure is required to perform the given number of random slices, each of which is saved in `data/random`.
@@ -107,7 +113,7 @@ and give the number of queries as input. In this program, the structure is requi
 RAM usage varies with different values of threshold for octree image compression. An estimate of RAM in use when an image is loaded as a grid or an octree can be obtained by executing the following lines
 
 ```
-./bin/measure/ram data/mri <structure>
+./bin/measure/ram <path> <structure>
 ```
 
 ## Results
