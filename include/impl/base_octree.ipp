@@ -125,7 +125,7 @@ void BaseOctree<T, Node>::print(Node *node, int level, int quadrant) {
 		for (int i = 0; i < level; i++) {
 			std::cout << "    ";
 		}
-		std::cout << '(' << quadrant << ") " << node->x_ << ' ' << node->y_ << ' ' << node->z_ << ": " << node->data_ << std::endl;
+		std::cout << '[' << quadrant << "] (" << node->x_ << ", " << node->y_ << ", " << node->z_ << "): " << node->data_ << std::endl;
 
 
 		for (; l < 8; l++) {
